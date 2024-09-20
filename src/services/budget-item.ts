@@ -12,17 +12,8 @@ export const fetchBudgetItems = async (): Promise<BudgetRequest[]> => {
   const { data } = response.data;
   return data;
 };
-//--------------------------------------
-export const fetchfilteredBudgetItems = async (queryParams?: Record<string, string | number>): Promise<BudgetRequest[]> => {
-  const response = await api.get<FetchBudgetItemsResponse>("/items", {
-    params: queryParams, // ส่ง query parameters เข้าไปที่นี่
-  });
-  
-  const { data } = response.data;
-  return data;
-};
 //--------------------------------------ดูของหน้าแก้ไข
-export const LookAtItem = async (id: any): Promise<BudgetRequest[]> => {
+export const LookAtItem = async (id: number): Promise<BudgetRequest[]> => {
   const response = await api.get<FetchBudgetItemsResponse>(`/items/${id}`);
   const { data } = response.data;
   console.log(data);
@@ -43,7 +34,7 @@ interface CreateBudgetItemResponse {
   data: BudgetRequest;
 }
 
-export const UpdateItem = async (body: UpdateItemRequest,id:any): Promise<BudgetRequest> => {
+export const UpdateItem = async (body: UpdateItemRequest,id:number): Promise<BudgetRequest> => {
   const response = await api.put<CreateBudgetItemResponse>(`/items/${id}`, body);
   const { data } = response.data;
   return data;

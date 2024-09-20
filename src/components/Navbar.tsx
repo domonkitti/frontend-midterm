@@ -2,12 +2,14 @@
 import Link from "next/link";
 import React, { useState } from 'react';
 import { Login } from '@/services/user'; 
+
 function Header() {
   const [formData, setFormData] = useState({
     username: '',
     password: ''
   });
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...formData,
@@ -43,7 +45,7 @@ function Header() {
         </nav>
         <div className="text-sm">
           {isLoggedIn ? (
-            <span>{formData.username}</span> // แสดงข้อความหลังล็อกอินสำเร็จ
+            <span>{formData.username}</span>
           ) : (
             <form onSubmit={handleSubmit} className="inline-flex items-center space-x-2">
               <input
@@ -70,6 +72,9 @@ function Header() {
               >
                 Login
               </button>
+              <Link href="/signup" className="px-3 py-1 bg-green-600 text-white rounded-md hover:bg-green-700">
+                Signup
+              </Link>
             </form>
           )}
         </div>

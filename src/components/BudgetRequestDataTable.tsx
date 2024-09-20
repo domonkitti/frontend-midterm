@@ -14,7 +14,7 @@ function BudgetRequestDataTable({ items }: BudgetRequestDataTableProps) {
   useEffect(() => {
     setCurrentItems(items);
   }, [items]);
-
+  //ถ้าอยากให้มันอัพเดทค่าจริงๆจาก database เวลา delete ก็จัดการ ใส่ currentItems
   const handleStatusChange = async (id: number, newStatus: "APPROVED" | "REJECTED") => {
     try {
       const newstatus = { status: newStatus };
@@ -35,8 +35,6 @@ function BudgetRequestDataTable({ items }: BudgetRequestDataTableProps) {
     try {
       await DeleteItem(id);
       alert(`${id} ${title} ถูกลบแล้ว`);
-
-      // ลบ item ที่ถูกลบออกจาก currentItems
       const updatedItems = currentItems.filter((item) => item.id !== id);
       setCurrentItems(updatedItems);
     } catch (error: any) {
