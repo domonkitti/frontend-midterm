@@ -3,6 +3,7 @@ import { ChangeItemStatus, DeleteItem } from "@/services/budget-item"; // Import
 import { Pencil } from "lucide-react";
 import { title } from "process";
 import { useState, useEffect } from "react";
+import BudgetPanel from "./BudgetPanel";
 
 interface BudgetRequestDataTableProps {
   items: BudgetRequest[];
@@ -43,64 +44,68 @@ function BudgetRequestDataTable({ items }: BudgetRequestDataTableProps) {
   };
 
   return (
-    <table className="min-w-full bg-white">
-      <thead>
-        <tr className="">
-          <th className="px-6 py-5 text-left text-xs font-bold text-gray-500 uppercase tracking-wider"></th>
-          <th className="px-6 py-5 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Id</th>
-          <th className="px-6 py-5 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Title</th>
-          <th className="px-6 py-5 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">ราคา</th>
-          <th className="px-6 py-5 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Budget</th>
-          <th className="px-6 py-5 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">รวมเป็นเงิน</th>
-          <th className="px-6 py-5 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Status</th>
-          <th className="px-6 py-5 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Action</th>
-        </tr>
-      </thead>
-      <tbody className="divide-y divide-gray-200">
-        {currentItems.map((request) => (
-          <tr key={request.id}>
-            <td className="px-6 py-4 whitespace-nowrap">
-              <button className="text-gray-600 hover:text-blue-600">
-                <a href={`/edit/${request.id}`} className="text-gray-600 hover:text-blue-600">
-                  <Pencil className="h-4 w-4" />
-                </a>
-              </button>
-              <button
-                onClick={() => handleDelete(request.id)}
-                className="ml-4 px-4 py-2 bg-red-500 text-white rounded-md hover:bg-gray-600"
-              >
-                Delete
-              </button>
-            </td>
-            <td className="px-6 py-4 whitespace-nowrap text-middle">{request.id}</td>
-            <td className="px-6 py-4 whitespace-nowrap">
-              <span className="font-normal">{request.title}</span>
-            </td>
-            <td className="px-6 py-4 whitespace-nowrap text-middle">{request.quantity}</td>
-            <td className="px-6 py-4 whitespace-nowrap text-middle">{request.price}</td>
-            <td className="px-6 py-4 whitespace-nowrap text-middle">{request.price * request.quantity}</td>
-            <td className="px-6 py-4 whitespace-nowrap text-middle">{request.status}</td>
-            <td className="px-6 py-4 whitespace-nowrap text-middle">
-              {request.status === "APPROVED" ? (
-                <button
-                  onClick={() => handleStatusChange(request.id, "REJECTED")}
-                  className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
-                >
-                  Change to REJECTED
-                </button>
-              ) : (
-                <button
-                  onClick={() => handleStatusChange(request.id, "APPROVED")}
-                  className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600"
-                >
-                  Change to APPROVED
-                </button>
-              )}
-            </td>
+  <><div className="mt-4">
+      <BudgetPanel items={currentItems} />
+    </div><table className="min-w-full bg-white">
+        <thead>
+          <tr className="">
+            <th className="px-6 py-5 text-left text-xs font-bold text-gray-500 uppercase tracking-wider"></th>
+            <th className="px-6 py-5 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Id</th>
+            <th className="px-6 py-5 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Title</th>
+            <th className="px-6 py-5 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">ราคา</th>
+            <th className="px-6 py-5 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Budget</th>
+            <th className="px-6 py-5 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">รวมเป็นเงิน</th>
+            <th className="px-6 py-5 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Status</th>
+            <th className="px-6 py-5 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Action</th>
+            <th className="px-6 py-5 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">เจ้าของ</th>
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody className="divide-y divide-gray-200">
+          {currentItems.map((request) => (
+            <tr key={request.id}>
+              <td className="px-6 py-4 whitespace-nowrap">
+                <button className="text-gray-600 hover:text-blue-600">
+                  <a href={`/edit/${request.id}`} className="text-gray-600 hover:text-blue-600">
+                    <Pencil className="h-4 w-4" />
+                  </a>
+                </button>
+                <button
+                  onClick={() => handleDelete(request.id)}
+                  className="ml-4 px-4 py-2 bg-red-500 text-white rounded-md hover:bg-gray-600"
+                >
+                  Delete
+                </button>
+              </td>
+              <td className="px-6 py-4 whitespace-nowrap text-middle">{request.id}</td>
+              <td className="px-6 py-4 whitespace-nowrap">
+                <span className="font-normal">{request.title}</span>
+              </td>
+              <td className="px-6 py-4 whitespace-nowrap text-middle">{request.quantity}</td>
+              <td className="px-6 py-4 whitespace-nowrap text-middle">{request.price}</td>
+              <td className="px-6 py-4 whitespace-nowrap text-middle">{request.price * request.quantity}</td>
+              <td className="px-6 py-4 whitespace-nowrap text-middle">{request.status}</td>
+              <td className="px-6 py-4 whitespace-nowrap text-middle">
+                {request.status === "APPROVED" ? (
+                  <button
+                    onClick={() => handleStatusChange(request.id, "REJECTED")}
+                    className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
+                  >
+                    Change to REJECTED
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => handleStatusChange(request.id, "APPROVED")}
+                    className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600"
+                  >
+                    Change to APPROVED
+                  </button>
+                )}
+              </td>
+              <td className="px-6 py-4 whitespace-nowrap text-middle">{request.owner}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table></>
   );
 }
 

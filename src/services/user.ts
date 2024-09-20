@@ -23,7 +23,8 @@ interface LoginResponseData {
 // }
 interface LoginResponse {//เลือกว่าจะสนใจอะไร
   data: LoginResponseData;
-  status :number    
+  status :number
+      
 }
 
 //ไม่รู้จะกำหนด any ยังไงมันเป็น object
